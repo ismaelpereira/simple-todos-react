@@ -1,1 +1,55 @@
-node_modules/
+
+# Created by https://www.toptal.com/developers/gitignore/api/meteor,meteorjs,vscode,react
+# Edit at https://www.toptal.com/developers/gitignore?templates=meteor,meteorjs,vscode,react
+
+### Meteor ###
+# gitignore template for the Meteor framework
+# website: https://www.meteor.com/
+#
+# Recommended template: Node.gitignore
+
+# protect api keys in setting json
+settings-production.json
+settings.json
+
+# protect your mup.json settings
+mup.json
+mup.js
+
+### MeteorJS ###
+# default meteor build and local packages
+.meteor/local
+
+# meteor settings file
+
+# meteor build output files
+*.tar.gz
+
+# general swp files from vim
+*.swp
+
+### react ###
+.DS_*
+*.log
+logs
+**/*.backup.*
+**/*.back.*
+
+node_modules
+bower_components
+
+*.sublime*
+
+psd
+thumb
+sketch
+
+### vscode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# End of https://www.toptal.com/developers/gitignore/api/meteor,meteorjs,vscode,react
