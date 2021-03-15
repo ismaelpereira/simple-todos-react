@@ -131,3 +131,12 @@ header{
 .task-form{
   margin-top: 1rem;
 }
+
+.filter{
+  display:flex;
+  justify-content: center;
+}
+
+.filter > button{
+  background-color: #62807e;
+}
