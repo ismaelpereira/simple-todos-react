@@ -2,15 +2,14 @@ import { Meteor } from "meteor/meteor";
 import React, { useReducer, useState } from "react";
 import { TasksCollection } from "../db/TasksCollection";
 
-export const TaskForm = ({ user }) => {
+export const TaskForm = () => {
   const [text, setText] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!text) return;
-    Meteor.call("tasks.insert", text);
-
+    if (!text) return alert("O texto nao pode estar em branco!!");
     setText("");
+    Meteor.call("tasks.insert", text);
   };
 
   return (

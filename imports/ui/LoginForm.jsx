@@ -30,6 +30,7 @@ export const LoginForm = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button type="submit">Log In</button>
+      <button></button>
     </form>
   );
 };

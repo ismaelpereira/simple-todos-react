@@ -29,8 +29,8 @@ Meteor.methods({
     TasksCollection.remove(taskId);
   },
 
-  "tasks.setIsChecked"(taskID, isChecked) {
-    check(taskID, String);
+  "tasks.setIsChecked"(taskId, isChecked) {
+    check(taskId, String);
     check(isChecked, Boolean);
 
     if (!this.userId) {
@@ -42,7 +42,7 @@ Meteor.methods({
       throw new Meteor.error("Acess Denied.");
     }
 
-    TasksCollection.update(taskID, {
+    TasksCollection.update(taskId, {
       $set: {
         isChecked,
       },

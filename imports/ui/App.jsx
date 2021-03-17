@@ -18,7 +18,6 @@ export const App = () => {
   const hideCompletedFilter = { isChecked: { $ne: true } };
   const userFilter = user ? { userId: user._id } : {};
   const pendingOnlyFilter = { ...hideCompletedFilter, ...userFilter };
-
   const { tasks, pendingTaskCount, isLoading } = useTracker(() => {
     const noDataAvailable = { tasks: [], pendingTaskCount: 0 };
     if (!Meteor.user()) {
@@ -28,7 +27,6 @@ export const App = () => {
     if (!handler.ready()) {
       return { ...noDataAvailable, isLoading: true };
     }
-
     const tasks = TasksCollection.find(
       hideCompleted ? pendingOnlyFilter : userFilter,
       {
