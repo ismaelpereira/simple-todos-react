@@ -3,7 +3,7 @@ import React, { useState } from "react";
 export const Task = ({ task, onCheckboxClick, onDeleteClick }) => {
   const [checked, setChecked] = useState(task.isChecked);
   let item;
-  if (checked === true) {
+  if (checked) {
     item = (
       <span>
         <s>{task.text}</s>
