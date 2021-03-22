@@ -7,8 +7,15 @@ export const Task = ({ task, onCheckboxClick, onDeleteClick }) => {
 
   const submit = (e) => {
     e.preventDefault();
-    Meteor.call("insert.item", task._id, value);
+    Meteor.call("item.insert", task._id, value, function (error) {
+      if (error) {
+        throw new Meteor.Error(error, reason);
+      } else {
+        console.log("Sucess");
+      }
+    });
     console.log(task);
+    console.log(value);
   };
 
   let btn;

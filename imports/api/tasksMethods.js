@@ -13,12 +13,6 @@ Meteor.methods({
       text,
       userId: this.userId,
       createdAt: new Date(),
-      values: [
-        {
-          item: "",
-          isChecked: false,
-        },
-      ],
     });
   },
 
@@ -54,10 +48,9 @@ Meteor.methods({
     });
   },
 
-  "insert.item"(taskId, value) {
+  "item.insert"(taskId, value) {
     check(taskId, String);
     check(value, String);
-
     if (!this.userId) {
       throw new Meteor.error("Not authorized.");
     }
@@ -66,10 +59,15 @@ Meteor.methods({
     if (!task) {
       throw new Meteor.error("Acess Denied.");
     }
+
     TasksCollection.update(taskId, {
       $push: {
-        text: value,
-        isChecked: false,
+        values: [
+          {
+            text: value,
+            isChecked: false,
+          },
+        ],
       },
     });
   },
