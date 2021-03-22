@@ -62,12 +62,10 @@ Meteor.methods({
 
     TasksCollection.update(taskId, {
       $push: {
-        values: [
-          {
-            text: value,
-            isChecked: false,
-          },
-        ],
+        values: {
+          text: value,
+          isChecked: false,
+        },
       },
     });
   },

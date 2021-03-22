@@ -7,8 +7,8 @@ export const TaskForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!text) return alert("O texto nao pode estar em branco!!");
     setText("");
+    if (!text) return alert("O texto nao pode estar em branco!!");
     Meteor.call("tasks.insert", text);
   };
 
