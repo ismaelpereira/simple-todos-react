@@ -126,29 +126,28 @@ header {
 .tasks > li > button {
   justify-self: flex-end;
   background-color: #ff3046;
+  height: 100%;
 }
 
 .tasks > li > .btn-add {
   justify-self: flex-end;
   background-color: green;
   margin-right: 10px;
+  height: 100%;
 }
 
 .tasks > li > form > .btn-add {
   justify-self: flex-end;
   background-color: green;
-  margin-right: 10px;
 }
 
 .tasks > li > form > .btn-cancel {
   justify-self: flex-end;
   background-color: orange;
-  margin-right: 10px;
 }
 
 .tasks > li > form > input {
   justify-self: flex-end;
-  margin-right: 10px;
 }
 
 .task-form {
@@ -256,30 +255,4 @@ header {
 
 .modal-form > div > button {
   background-color: #62807e;
-}
-
-.accordion {
-  background-color: grey;
-  color: #444;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-  transition: 0.4s;
-}
-
-.active,
-.accordion:hover {
-  background-color: #ccc;
-  width: 100%;
-}
-
-.panel {
-  padding: 0 18px;
-  display: none;
-  background-color: white;
-  overflow: hidden;
 }

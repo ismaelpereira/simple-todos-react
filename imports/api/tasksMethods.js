@@ -1,4 +1,5 @@
 import { check } from "meteor/check";
+import { ItensCollection } from "../db/ItensCollection";
 import { TasksCollection } from "../db/TasksCollection";
 
 Meteor.methods({
@@ -11,8 +12,8 @@ Meteor.methods({
 
     TasksCollection.insert({
       text,
-      userId: this.userId,
       createdAt: new Date(),
+      userId: this.userId,
     });
   },
 
@@ -27,6 +28,15 @@ Meteor.methods({
       throw new Meteor.error("Acess denied.");
     }
     TasksCollection.remove(taskId);
+    ItensCollection.find().forEach((item) => {
+      if (item.taskId === taskId) {
+        ItensCollection.remove(item._id);
+      }
+    });
+    console.log(this.itemId);
+    if (!task) {
+      throw new Meteor.error("Acess denied.");
+    }
   },
 
   "tasks.setIsChecked"(taskId, isChecked) {
@@ -41,32 +51,34 @@ Meteor.methods({
     if (!task) {
       throw new Meteor.error("Acess Denied.");
     }
+
     TasksCollection.update(taskId, {
       $set: {
         isChecked,
       },
     });
   },
-
-  "item.insert"(taskId, value) {
+  "items.insert"(taskId, text) {
     check(taskId, String);
-    check(value, String);
+    check(text, String);
+
     if (!this.userId) {
       throw new Meteor.error("Not authorized.");
     }
+    const task = TasksCollection.findOne({
+      _id: taskId,
+      userId: this.userId,
+    });
 
-    const task = TasksCollection.findOne({ _id: taskId, userId: this.userId });
     if (!task) {
       throw new Meteor.error("Acess Denied.");
     }
 
-    TasksCollection.update(taskId, {
-      $push: {
-        values: {
-          text: value,
-          isChecked: false,
-        },
-      },
+    ItensCollection.insert({
+      text,
+      taskId: taskId,
+      userId: this.userId,
+      createdAt: new Date(),
     });
   },
 });

@@ -5,6 +5,7 @@ import { TasksCollection } from "../db/TasksCollection";
 import { Task } from "./Task";
 import { TaskForm } from "./TaskForm";
 import { LoginForm } from "./LoginForm";
+import { ItensCollection } from "../db/ItensCollection";
 
 const toggleChecked = ({ _id, isChecked }) => {
   Meteor.call("tasks.setIsChecked", _id, !isChecked);

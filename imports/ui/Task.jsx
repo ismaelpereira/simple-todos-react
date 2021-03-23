@@ -7,50 +7,17 @@ export const Task = ({ task, onCheckboxClick, onDeleteClick }) => {
 
   const submit = (e) => {
     e.preventDefault();
-    Meteor.call("item.insert", task._id, value);
+    Meteor.call("items.insert", task._id, value);
   };
-  console.log(task);
-  let itens;
-  if (task.values !== undefined) {
-    itens = Object.values(task.values).map((itens) => (
-      <ul>
-        <li>{itens.text}</li>
-      </ul>
-    ));
-  }
 
-  var acc = document.getElementsByClassName("accordion");
-  var i;
-
-  for (i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function () {
-      this.classList.toggle("active");
-      var panel = this.nextElementSibling;
-      if (panel.style.display === "block") {
-        panel.style.display = "none";
-      } else {
-        panel.style.display = "block";
-      }
-    });
-  }
-
-  let btn;
   if (checked) {
     btn = (
-      <div>
-        <button className="accordion">
-          <s>{task.text}</s>
-        </button>
-        <div className="panel">{itens}</div>
-      </div>
+      <span>
+        <s>{task.text}</s>
+      </span>
     );
   } else {
-    btn = (
-      <div>
-        <button className="accordion">{task.text}</button>
-        <div className="panel">{itens}</div>
-      </div>
-    );
+    btn = <span>{task.text}</span>;
   }
 
   let input;
@@ -80,15 +47,17 @@ export const Task = ({ task, onCheckboxClick, onDeleteClick }) => {
 
   return (
     <li>
-      <input
-        type="checkbox"
-        checked={!!task.isChecked}
-        onClick={() => onCheckboxClick(task)}
-        onChange={() => setChecked(!checked)}
-      />
-      {btn}
-      {input}
-
+      <div>
+        <input
+          type="checkbox"
+          checked={!!task.isChecked}
+          onClick={() => onCheckboxClick(task)}
+          onChange={() => setChecked(!checked)}
+        />
+        {btn}
+        {input}
+      </div>
+      <div className="panel">{}</div>
       <button onClick={() => onDeleteClick(task)}>&times;</button>
     </li>
   );
