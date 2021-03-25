@@ -33,7 +33,6 @@ Meteor.methods({
         ItensCollection.remove(item._id);
       }
     });
-    console.log(this.itemId);
     if (!task) {
       throw new Meteor.error("Acess denied.");
     }

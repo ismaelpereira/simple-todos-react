@@ -129,14 +129,14 @@ header {
   height: 100%;
 }
 
-.tasks > li > .btn-add {
+.tasks > li > div > .btn-add {
   justify-self: flex-end;
   background-color: green;
   margin-right: 10px;
   height: 100%;
 }
 
-.tasks > li > form > .btn-add {
+.tasks > li > div > form > .btn-add {
   justify-self: flex-end;
   background-color: green;
 }

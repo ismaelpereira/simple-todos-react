@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ItensCollection } from "../db/ItensCollection";
 
 export const Task = ({ task, onCheckboxClick, onDeleteClick }) => {
   const [checked, setChecked] = useState(!!task.isChecked);
@@ -10,6 +11,13 @@ export const Task = ({ task, onCheckboxClick, onDeleteClick }) => {
     Meteor.call("items.insert", task._id, value);
   };
 
+  let itens;
+  ItensCollection.find().map((item) => {
+    if (item.taskId === task._id) {
+      itens = <span>{item.text}</span>;
+    }
+  });
+
   if (checked) {
     btn = (
       <span>
@@ -17,7 +25,11 @@ export const Task = ({ task, onCheckboxClick, onDeleteClick }) => {
       </span>
     );
   } else {
-    btn = <span>{task.text}</span>;
+    btn = (
+      <div>
+        <span>{task.text}</span>
+      </div>
+    );
   }
 
   let input;
@@ -57,7 +69,7 @@ export const Task = ({ task, onCheckboxClick, onDeleteClick }) => {
         {btn}
         {input}
       </div>
-      <div className="panel">{}</div>
+      <div className="panel">{itens}</div>
       <button onClick={() => onDeleteClick(task)}>&times;</button>
     </li>
   );

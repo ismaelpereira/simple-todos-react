@@ -11,14 +11,15 @@ export const Modal = () => {
 
   const submit = (e) => {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      alert("Password do not match");
+      throw new Meteor.Error("Password do not match");
+    }
     Accounts.createUser({
       email: email,
       password: password,
     });
-    if (password !== confirmPassword) {
-      alert("Password do not match");
-      Meteor.Error("Password do not match");
-    }
+
     Meteor.users.find().fetch();
   };
 

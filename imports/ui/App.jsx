@@ -25,7 +25,9 @@ export const App = () => {
       return noDataAvailable;
     }
     const handler = Meteor.subscribe("tasks");
-    if (!handler.ready()) {
+    const itensHandler = Meteor.subscribe("items");
+
+    if (!handler.ready() || !itensHandler.ready()) {
       return { ...noDataAvailable, isLoading: true };
     }
     const tasks = TasksCollection.find(
