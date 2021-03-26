@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import { ItensCollection } from "../db/ItensCollection";
 
-export const Task = ({
-  task,
-  onCheckboxClick,
-  onDeleteClick,
-  onItemCheckboxClick,
-}) => {
+export const Task = ({ task, onCheckboxClick, onDeleteClick }) => {
   const [checked, setChecked] = useState(!!task.isChecked);
   const [button, setButton] = useState(false);
   const [value, setValue] = useState("");
@@ -17,27 +12,28 @@ export const Task = ({
   };
 
   const items = ItensCollection.find().fetch();
-  const itemRows = Object.values(items).map((item) => (
-    <div>
-      <input
-        type="checkbox"
-        checked={!!item.isChecked}
-        onClick={() => toggleChecked(item)}
-        onChange={() => setItemChecked(!itemChecked)}
-      />
-      {item.text}
-    </div>
-  ));
+  const itemRows = Object.values(items).map((item) => {
+    if (task._id === item.taskId) {
+      return (
+        <div key={item._id}>
+          <ul>
+            <input
+              type="checkbox"
+              checked={!!item.isChecked}
+              onClick={() => toggleItemChecked(item)}
+              onChange={() => setItemChecked(!itemChecked)}
+            />
+            <span>{item.text}</span>
+          </ul>
+        </div>
+      );
+    }
+  });
+  const [itemChecked, setItemChecked] = useState(!!!items.isChecked);
   console.log(items);
-  const [itemChecked, setItemChecked] = useState(!!items.isChecked);
-
-  const toggleChecked = ({ _id, isChecked }) => {
-    console.log(typeof _id);
-    console.log(typeof isChecked);
-
-    Meteor.call("items.setIsChecked", _id, !isChecked);
+  const toggleItemChecked = ({ _id, isChecked }) => {
+    Meteor.call("items.setItemChecked", _id, !isChecked);
   };
-
   if (checked) {
     btn = (
       <span>

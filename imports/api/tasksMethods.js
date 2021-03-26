@@ -80,7 +80,7 @@ Meteor.methods({
       createdAt: new Date(),
     });
   },
-  "items.setIsChecked"(itemId, isChecked) {
+  "items.setItemChecked"(itemId, isChecked) {
     check(itemId, String);
     check(isChecked, Boolean);
 
