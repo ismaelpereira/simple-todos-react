@@ -80,4 +80,18 @@ Meteor.methods({
       createdAt: new Date(),
     });
   },
+  "items.setIsChecked"(itemId, isChecked) {
+    check(itemId, String);
+    check(isChecked, Boolean);
+
+    if (!this.userId) {
+      throw new Meteor.error("Not authorized");
+    }
+
+    ItensCollection.update(itemId, {
+      $set: {
+        isChecked,
+      },
+    });
+  },
 });

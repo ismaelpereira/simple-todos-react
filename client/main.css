@@ -129,14 +129,14 @@ header {
   height: 100%;
 }
 
-.tasks > li > div > .btn-add {
+.tasks > li > .btn-add {
   justify-self: flex-end;
   background-color: green;
   margin-right: 10px;
   height: 100%;
 }
 
-.tasks > li > div > form > .btn-add {
+.tasks > li > form > .btn-add {
   justify-self: flex-end;
   background-color: green;
 }
@@ -255,4 +255,30 @@ header {
 
 .modal-form > div > button {
   background-color: #62807e;
+}
+
+.accordion {
+  background-color: grey;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.active,
+.accordion:hover {
+  background-color: #ccc;
+  width: 100%;
+}
+
+.panel {
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+  overflow: hidden;
 }
