@@ -81,9 +81,16 @@ export const Task = ({
         <span>
           <s> {task.text}</s>
         </span>
-        <span>{itemRows}</span>
+        <span>
+          <s>{itemRows}</s>
+        </span>
       </div>
     );
+    Object.values(items).map((item) => {
+      if (task._id === item.taskId) {
+        Meteor.call("items.setItemChecked", item._id, (item.isChecked = true));
+      }
+    });
   } else {
     btn = (
       <div>
