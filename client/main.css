@@ -123,27 +123,33 @@ header {
   flex-grow: 1;
 }
 
-.tasks > li > button {
-  justify-self: flex-end;
-  background-color: #ff3046;
-  height: 100%;
-}
-
-.tasks > li > .btn-add {
+.btn-add {
   justify-self: flex-end;
   background-color: green;
   margin-right: 10px;
-  height: 100%;
+}
+.btn-remove {
+  justify-self: flex-end;
+  background-color: #ff3046;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
 }
 
-.tasks > li > form > .btn-add {
+.btn-add {
   justify-self: flex-end;
   background-color: green;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
 }
 
-.tasks > li > form > .btn-cancel {
+.btn-cancel {
   justify-self: flex-end;
   background-color: orange;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
 }
 
 .tasks > li > form > input {
@@ -281,4 +287,21 @@ header {
   display: none;
   background-color: white;
   overflow: hidden;
+}
+
+.buttons-task {
+  align-self: center;
+  margin: auto;
+}
+.btn-delete-item {
+  background-color: white;
+  color: black;
+  padding-left: 10px;
+  margin-top: 3px;
+}
+
+.form-add-item {
+  flex-direction: row;
+  align-self: center;
+  margin: auto;
 }

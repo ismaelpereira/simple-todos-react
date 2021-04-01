@@ -5,12 +5,19 @@ import { TasksCollection } from "../db/TasksCollection";
 import { Task } from "./Task";
 import { TaskForm } from "./TaskForm";
 import { LoginForm } from "./LoginForm";
+import { ItensCollection } from "../db/ItensCollection";
 
 const toggleChecked = ({ _id, isChecked }) => {
   Meteor.call("tasks.setIsChecked", _id, !isChecked);
 };
 
+const toggleItemChecked = ({ _id, isChecked }) => {
+  Meteor.call("items.setItemChecked", _id, !isChecked);
+};
+
 const deleteTask = ({ _id }) => Meteor.call("tasks.remove", _id);
+
+const deleteItem = ({ _id }) => Meteor.call("items.remove", _id);
 
 export const App = () => {
   const user = useTracker(() => Meteor.user());
@@ -18,7 +25,7 @@ export const App = () => {
   const hideCompletedFilter = { isChecked: { $ne: true } };
   const userFilter = user ? { userId: user._id } : {};
   const pendingOnlyFilter = { ...hideCompletedFilter, ...userFilter };
-  const { tasks, pendingTaskCount, isLoading } = useTracker(() => {
+  const { items, tasks, pendingTaskCount, isLoading } = useTracker(() => {
     const noDataAvailable = { tasks: [], pendingTaskCount: 0 };
     if (!Meteor.user()) {
       return noDataAvailable;
@@ -35,9 +42,10 @@ export const App = () => {
         sort: { createdAt: -1 },
       }
     ).fetch();
+    const items = ItensCollection.find().fetch();
     const pendingTaskCount = TasksCollection.find(pendingOnlyFilter).count();
 
-    return { tasks, pendingTaskCount };
+    return { items, tasks, pendingTaskCount };
   });
 
   const pendingTaskTitle = `${
@@ -52,7 +60,7 @@ export const App = () => {
         <div className="app-bar">
           <div className="app-header">
             <h1>
-              📝️ To Do List
+              📝️ To-Do Lists
               {pendingTaskTitle}
             </h1>
           </div>
@@ -78,8 +86,11 @@ export const App = () => {
                 <Task
                   key={task._id}
                   task={task}
+                  items={items}
                   onCheckboxClick={toggleChecked}
                   onDeleteClick={deleteTask}
+                  toggleItemChecked={toggleItemChecked}
+                  onDeleteItemClick={deleteItem}
                 />
               ))}
             </ul>

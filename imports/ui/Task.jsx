@@ -1,65 +1,119 @@
 import React, { useState } from "react";
-import { ItensCollection } from "../db/ItensCollection";
 
-export const Task = ({ task, onCheckboxClick, onDeleteClick }) => {
+export const Task = ({
+  task,
+  items,
+  onCheckboxClick,
+  onDeleteClick,
+  toggleItemChecked,
+  onDeleteItemClick,
+}) => {
   const [checked, setChecked] = useState(!!task.isChecked);
   const [button, setButton] = useState(false);
   const [value, setValue] = useState("");
+  const [itemChecked, setItemChecked] = useState(false);
 
   const submit = (e) => {
     e.preventDefault();
     Meteor.call("items.insert", task._id, value);
+    setValue("");
   };
 
-  const items = ItensCollection.find().fetch();
   const itemRows = Object.values(items).map((item) => {
     if (task._id === item.taskId) {
-      return (
-        <div key={item._id}>
-          <ul>
-            <input
-              type="checkbox"
-              checked={!!item.isChecked}
-              onClick={() => toggleItemChecked(item)}
-              onChange={() => setItemChecked(!itemChecked)}
-            />
-            <span>{item.text}</span>
-          </ul>
-        </div>
-      );
+      if (item.isChecked) {
+        return (
+          <div key={item._id}>
+            <ul>
+              <input
+                className="item-checkbox"
+                type="checkbox"
+                checked={!!item.isChecked}
+                onClick={() => toggleItemChecked(item)}
+                onChange={() => setItemChecked(!itemChecked)}
+              />
+              <span>
+                <s>{item.text}</s>
+              </span>
+              <button
+                className="btn-delete-item"
+                onClick={() => onDeleteItemClick(item)}
+              >
+                &times;
+              </button>
+            </ul>
+          </div>
+        );
+      } else {
+        return (
+          <div key={item._id}>
+            <ul>
+              <input
+                className="item-checkbox"
+                type="checkbox"
+                checked={!!item.isChecked}
+                onClick={() => toggleItemChecked(item)}
+                onChange={() => setItemChecked(!itemChecked)}
+              />
+              <span>{item.text}</span>
+              <button
+                className="btn-delete-item"
+                onClick={() => onDeleteItemClick(item)}
+              >
+                &times;
+              </button>
+            </ul>
+          </div>
+        );
+      }
     }
   });
-  const [itemChecked, setItemChecked] = useState(!!!items.isChecked);
-  console.log(items);
-  const toggleItemChecked = ({ _id, isChecked }) => {
-    Meteor.call("items.setItemChecked", _id, !isChecked);
-  };
+
   if (checked) {
     btn = (
-      <span>
-        <s>{task.text}</s>
-        {itemRows}
-      </span>
+      <div>
+        <input
+          type="checkbox"
+          checked={!!task.isChecked}
+          onClick={() => onCheckboxClick(task)}
+          onChange={() => setChecked(!checked)}
+        />
+        <span>
+          <s> {task.text}</s>
+        </span>
+        <span>{itemRows}</span>
+      </div>
     );
   } else {
     btn = (
-      <span>
-        {task.text}
-        {itemRows}
-      </span>
+      <div>
+        <input
+          type="checkbox"
+          checked={!!task.isChecked}
+          onClick={() => onCheckboxClick(task)}
+          onChange={() => setChecked(!checked)}
+        />
+        <span>{task.text}</span>
+        <span>{itemRows}</span>
+      </div>
     );
   }
 
-  let input;
+  let formItem;
   if (!button) {
-    input = (
-      <button className="btn-add" onClick={() => setButton(!button)}>
-        +
-      </button>
+    formItem = (
+      <div className="buttons-task">
+        <button className="btn-add" onClick={() => setButton(!button)}>
+          +
+        </button>
+        <button className="btn-remove" onClick={() => onDeleteClick(task)}>
+          &times;
+        </button>
+      </div>
     );
   } else {
-    input = (
-      <form onSubmit={submit}>
+    formItem = (
+      <div className="form-add-item">
         <input
           type="text"
           placeholder="Add new item"
@@ -71,23 +125,17 @@ export const Task = ({ task, onCheckboxClick, onDeleteClick }) => {
         <button className="btn-cancel" onClick={() => setButton(!button)}>
           Cancel
         </button>
-      </form>
+        <button className="btn-remove" onClick={() => onDeleteClick(task)}>
+          &times;
+        </button>
+      </div>
     );
   }
 
   return (
     <li>
-      <div>
-        <input
-          type="checkbox"
-          checked={!!task.isChecked}
-          onClick={() => onCheckboxClick(task)}
-          onChange={() => setChecked(!checked)}
-        />
-        {btn}
-      </div>
-      {input}
-      <button onClick={() => onDeleteClick(task)}>&times;</button>
+      {btn}
+      {formItem}
     </li>
   );
 };

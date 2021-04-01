@@ -94,4 +94,13 @@ Meteor.methods({
       },
     });
   },
+  "items.remove"(itemId) {
+    check(itemId, String);
+
+    const item = ItensCollection.findOne({ _id: itemId, userId: this.userId });
+    if (!item) {
+      throw new Meteor.error("Acess denied.");
+    }
+    ItensCollection.remove(itemId);
+  },
 });
