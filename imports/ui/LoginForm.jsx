@@ -1,5 +1,5 @@
 import { Meteor } from "meteor/meteor";
-import React, { useState, useRef, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import { Modal } from "./Modal";
 
 export const LoginForm = () => {

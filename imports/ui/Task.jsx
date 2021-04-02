@@ -120,7 +120,7 @@ export const Task = ({
     );
   } else {
     formItem = (
-      <div className="form-add-item">
+      <form className="form-add-item" onSubmit={submit}>
         <input
           type="text"
           placeholder="Add new item"
@@ -135,7 +135,7 @@ export const Task = ({
         <button className="btn-remove" onClick={() => onDeleteClick(task)}>
           &times;
         </button>
-      </div>
+      </form>
     );
   }
 
